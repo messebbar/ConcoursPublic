@@ -1,0 +1,55 @@
+input: mat, n, m, r
+output: rien
+
+objectif: effectuer r rotation sur la matrice Mat dont les dimensions sont m*n et afficher le résultat.
+
+
+direction = [1, 2, 3, 4]
+iteration = m/2
+
+
+rotation_repete :
+	boucle 1 -> r
+		rotation_simple (mat, m, n)
+		
+	afficher(mat)
+
+rotation_simple:
+	
+	iterations = min(m, n)/2
+	boucle 1 -> iterations: i
+		
+		entier: startI= i, startJ= i;
+		entier: I=startI, J=startJ;
+		entier: borderI= m - i, borderJ= n - i;
+		entier: precedent= mat[I][J], next = 0;
+		entier: direction = 1;
+		
+		tant que (1) :
+			
+			si direction == 1 :
+				I <- I + 1
+			si direction == 2:
+				J <- J + 1
+			si direction == 3:
+				I <- I - 1
+			si direction == 4:
+				J <- J - 1
+			fin 
+			
+			tmp <- mat[I][J]
+			mat[I][J] <- precedent
+			precedent <- tmp
+			
+			si I == borderI and direction == 1:
+				direction = 2;
+			si J == borderJ and direction == 2:
+				direction = 3
+			si I == startI and direction == 3:
+				direction = 4
+			fin si
+			
+			if I == startI and J == startJ:
+				break;
+				
+	retourner mat
